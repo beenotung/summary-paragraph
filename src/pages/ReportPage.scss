@@ -3,11 +3,12 @@
     background-color: lavender;
     padding: 1rem;
     .keyword {
-      &:hover {
-        background-color: lightgreen;
-      }
       &.highlight {
         background-color: lightgreen;
+      }
+      &:hover,
+      &.hover {
+        background-color: lightsalmon;
       }
     }
   }

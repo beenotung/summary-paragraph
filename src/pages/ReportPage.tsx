@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useStateProxy } from 'use-state-proxy'
 import { useParams } from 'react-router'
@@ -15,7 +15,9 @@ export function Word(props: {
   word: string
   keywords: string[]
   onClick?: () => void
+  onHover?: (hover: boolean) => void
   highlight?: boolean
+  hover?: boolean
 }) {
   const isKeyword = props.keywords.includes(props.word)
   if (!isKeyword) {
@@ -25,8 +27,16 @@ export function Word(props: {
   if (props.highlight) {
     className += ' highlight'
   }
+  if (props.hover) {
+    className += ' hover'
+  }
   return (
-    <span className={className} onClick={props.onClick}>
+    <span
+      className={className}
+      onMouseOver={() => props.onHover?.(true)}
+      onMouseOut={() => props.onHover?.(false)}
+      onClick={props.onClick}
+    >
       {props.word}
     </span>
   )
@@ -38,6 +48,7 @@ export function ReportPage() {
   const report = useSelector((state: RootState) => state.summary.reports[id])
   const dispatch = useDispatch()
   const state = useStateProxy({ clicked: [] as string[] })
+  const [hoverWord, setHoverWord] = useState<null | string>(null)
   useEffect(() => {
     dispatch({
       type: '@@Summary/reset-error',
@@ -69,6 +80,8 @@ export function ReportPage() {
                   keywords={report.keywords}
                   key={i}
                   highlight={state.clicked.includes(word)}
+                  hover={hoverWord === word}
+                  onHover={hover => setHoverWord(hover ? word : null)}
                   onClick={() =>
                     state.clicked.includes(word) || [
                       state.clicked.push(word),

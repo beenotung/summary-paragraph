@@ -1,6 +1,6 @@
 # react-summary-paragraph-demo
 
-Demo: https://summarize-app.surge.sh/history
+Demo: https://summarize-app.surge.sh
 
 Powered by [React](./toolkit.md)
 

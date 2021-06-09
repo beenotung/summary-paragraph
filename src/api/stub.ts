@@ -17,7 +17,7 @@ export const api = {
       console.log('POST /summary')
       if (Math.random() < 0.5) {
         console.log('random error')
-        throw new Error('server timeout')
+        throw new Error('server timeout (50% chance), please retry later')
       }
       console.log('processing')
 

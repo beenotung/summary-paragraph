@@ -3,7 +3,7 @@ import { splitText, addStopWord } from 'meta-stopwords'
 addStopWord('{')
 addStopWord('}')
 
-type Result = {
+type SummaryReport = {
   id: number
   paragraphs: string[]
   keywords: string[]
@@ -36,7 +36,7 @@ export const api = {
           return paragraph
         })
 
-      let result: Result = {
+      let result: SummaryReport = {
         id: Date.now(),
         paragraphs: paragraphs
           .sort((a, b) => b.length - a.length)
@@ -65,7 +65,7 @@ export const api = {
       if (!report) {
         throw new Error('report not found')
       }
-      return JSON.parse(report) as Result
+      return JSON.parse(report) as SummaryReport
     },
   },
 }

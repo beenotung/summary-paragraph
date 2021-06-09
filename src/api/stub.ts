@@ -21,29 +21,40 @@ export const api = {
       }
       console.log('processing')
 
-      const keywords = new Set<string>()
+      const keywords: Record<string, number> = {}
 
       let paragraphs = text
         .split('\n')
-        .map((line, index) => ({
-          line,
-          index,
-          length: line.length,
-        }))
         .filter(line => line.length > 0)
-        .map(paragraph => {
-          splitText(paragraph.line).forEach(word => keywords.add(word))
-          return paragraph
+        .map((line, index) => {
+          let words = splitText(line)
+          words.forEach(word => {
+            let count = keywords[word] || 0
+            keywords[word] = count + 1
+          })
+          return {
+            line,
+            index,
+            words,
+            weight: 0,
+          }
         })
+
+      paragraphs.forEach(paragraph => {
+        paragraph.weight = paragraph.words.reduce(
+          (acc, c) => acc + keywords[c] || 1,
+          0,
+        )
+      })
 
       let result: SummaryReport = {
         id: Date.now(),
         paragraphs: paragraphs
-          .sort((a, b) => b.length - a.length)
+          .sort((a, b) => b.weight - a.weight)
           .slice(0, sentence)
           .sort((a, b) => a.index - b.index)
           .map(paragraph => paragraph.line),
-        keywords: Array.from(keywords),
+        keywords: Object.keys(keywords),
       }
       localStorage.setItem('report-' + result.id, JSON.stringify(result))
       return result

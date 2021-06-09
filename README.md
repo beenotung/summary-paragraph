@@ -8,7 +8,7 @@ Powered by [React](./toolkit.md)
 
 This repo is setup to demonstrates how to share state across pages with redux.
 
-## Usage Libraries / Tools
+## Involved
 
 - [x] [react-router](https://www.npmjs.com/package/react-router)
   - [x] [react-router-dom](https://www.npmjs.com/package/react-router-dom)
@@ -21,6 +21,7 @@ This repo is setup to demonstrates how to share state across pages with redux.
 - [x] [Use Hooks](https://reactjs.org/docs/hooks-overview.html)
   - [x] [use-state-proxy](https://www.npmjs.com/package/use-state-proxy)
   - [x] [use-hook-form](https://www.npmjs.com/package/use-hook-form)
+- [x] [Offline API Stub](./src/api/stub.ts)
 - [x] CDN for demo (super easy to setup)
   - [x] [surge.sh](https://surge.sh/)
 

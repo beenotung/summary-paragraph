@@ -2,6 +2,8 @@
 
 Demo: https://summarize-app.surge.sh
 
+Inspired by [SMMRY](https://smmry.com)
+
 Powered by [React](./toolkit.md)
 
 ## Purpose
